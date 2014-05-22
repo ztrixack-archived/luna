@@ -94,7 +94,7 @@ public class MainActivity extends ActionBarActivity implements
 				@Override
 				public void run() {
 					try {
-						final String tx = Translate.translate(text);
+						final String tx = Translate.translateByGoogle("th", text);
 						getActivity().runOnUiThread(new Runnable() {
 							
 							@Override
