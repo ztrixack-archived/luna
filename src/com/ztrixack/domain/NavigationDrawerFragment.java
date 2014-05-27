@@ -1,4 +1,4 @@
-package com.ztrixack.main;
+package com.ztrixack.domain;
 
 import com.ztrixack.luna.R;
 

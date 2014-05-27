@@ -26,7 +26,6 @@ public class PersonalData implements Serializable {
 	public static final String MEMBER_TOKEN = "m_token";
 	public static final String MEMBER_DEVID = "m_devid";
 
-	public static final String MEMBER_GLOBAL_NEWS = "m_global_news";
 
 	long uid;
 	String user;
