@@ -15,8 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.FrameLayout;
+import android.widget.ListView;
 
+import com.ztrixack.feature.camera.CameraPreview;
+import com.ztrixack.feature.chat.MessageTask;
 import com.ztrixack.feature.translate.Translate;
 import com.ztrixack.luna.R;
 
@@ -35,8 +38,9 @@ public class MainActivity extends ActionBarActivity implements
 	 */
 	private CharSequence mTitle;
 
-	private static TextView textview;
 	private static EditText edittext;
+	private static ListView listview;
+	private static MessageTask task;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,12 @@ public class MainActivity extends ActionBarActivity implements
 	public void onPushMethod(View view) {
 		try {
 			final String text = edittext.getText().toString();
+			switch (text) {
+			case "กล้อง":
+				CameraPreview camera = new CameraPreview(this);
+				FrameLayout preview = (FrameLayout) findViewById(R.id.image_preview);
+				preview.addView(camera);
+			}
 			new Thread(new Runnable() {
 
 				@Override
@@ -91,13 +101,8 @@ public class MainActivity extends ActionBarActivity implements
 					try {
 						final String tx = Translate.translateByGoogle("th",
 								text);
-						getActivity().runOnUiThread(new Runnable() {
-
-							@Override
-							public void run() {
-								textview.setText(tx);
-							}
-						});
+						task.sendMessage(text);
+						task.receiveMessage(tx);
 
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -173,9 +178,10 @@ public class MainActivity extends ActionBarActivity implements
 					false);
 
 			edittext = (EditText) rootView.findViewById(R.id.text_edit);
-			textview = (TextView) rootView.findViewById(R.id.section_label);
+			listview = (ListView) rootView.findViewById(R.id.section_label);
 			// textView.setText(Integer.toString(getArguments().getInt(
 			// ARG_SECTION_NUMBER)));
+			task = new MessageTask(getActivity(), listview);
 			return rootView;
 		}
 

@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 /**
  * File Utility
@@ -22,6 +21,8 @@ import android.util.Log;
 @SuppressLint("DefaultLocale")
 public class FileUtils {
 
+	private static final String DEBUG_TAG = FileUtils.class.getName();
+
 	/**
 	 * Check file is exist and not empty, is not?
 	 * 
@@ -33,8 +34,8 @@ public class FileUtils {
 		if (fullFileName != null) {
 			File f = new File(fullFileName);
 			long lengthInBytes = f.length();
-			Log.i("FileUtils$checkIfFileExistAndNotEmpty", fullFileName
-					+ " length in bytes: " + lengthInBytes);
+			ZLog.i(DEBUG_TAG, fullFileName + " length in bytes: "
+					+ lengthInBytes);
 			return lengthInBytes > 100;
 		} else {
 			return false;
@@ -101,8 +102,8 @@ public class FileUtils {
 	public static void deleteFile(String fullFileName) {
 		File f = new File(fullFileName);
 		boolean isdeleted = f.delete();
-		Log.i("FileUtils$deleteFile", "deleteing: " + fullFileName
-				+ " isdeleted: " + isdeleted);
+		ZLog.i(DEBUG_TAG, "deleteing: " + fullFileName + " isdeleted: "
+				+ isdeleted);
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class FileUtils {
 		try {
 			f.createNewFile();
 		} catch (IOException e) {
-			Log.e("FileUtils$createFile", e.getMessage());
+			ZLog.e(DEBUG_TAG, e.getMessage());
 		}
 	}
 
@@ -131,8 +132,7 @@ public class FileUtils {
 	public static long getFileSizeInBytes(String fullFileName) {
 		File f = new File(fullFileName);
 		long lengthInBytes = f.length();
-		Log.i("FileUtils$getFileSizeInBytes", "fullFileName length in bytes: "
-				+ lengthInBytes);
+		ZLog.i(DEBUG_TAG, "fullFileName length in bytes: " + lengthInBytes);
 		return lengthInBytes;
 
 	}
@@ -151,8 +151,7 @@ public class FileUtils {
 		String name = path.substring(startIndex, endIndex) + "_sl_"
 				+ System.currentTimeMillis();
 		String ext = path.substring(endIndex + 1);
-		Log.i("FileUtils$getValidFFMpgegFileNameFromPath", "name: " + name
-				+ " ext: " + ext);
+		ZLog.i(DEBUG_TAG, "name: " + name + " ext: " + ext);
 		String validName = (name.replaceAll("\\Q.\\E", "_")).replaceAll(" ",
 				"_");
 		return validName + "" + ext;
@@ -171,8 +170,7 @@ public class FileUtils {
 
 		String name = path.substring(startIndex, endIndex);
 		String ext = path.substring(endIndex + 1);
-		Log.i("FileUtils$getValidFileNameFromPath", "name: " + name + " ext: "
-				+ ext);
+		ZLog.i(DEBUG_TAG, "name: " + name + " ext: " + ext);
 		String validName = (name.replaceAll("\\Q.\\E", "_")).replaceAll(" ",
 				"_");
 		return validName + "" + ext;
@@ -212,8 +210,7 @@ public class FileUtils {
 	 * @return File path is pasted.
 	 */
 	public static String copyFileToFolder(String filePath, String folderPath) {
-		Log.i("FileUtils$copyFileToFolder", "Coping file: " + filePath
-				+ " to: " + folderPath);
+		ZLog.i(DEBUG_TAG, "Coping file: " + filePath + " to: " + folderPath);
 		String validFilePathStr = filePath;
 
 		try {
@@ -237,7 +234,7 @@ public class FileUtils {
 
 			}
 		} catch (Exception e) {
-			Log.e("FileUtils$copyFileToFolder", e.getMessage());
+			ZLog.e(DEBUG_TAG, e.getMessage());
 		}
 		return validFilePathStr;
 	}
@@ -278,8 +275,8 @@ public class FileUtils {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			Log.e("FileUtils$appendToFile", "Failed to write to : " + filePath
-					+ " " + e.getMessage());
+			ZLog.e(DEBUG_TAG,
+					"Failed to write to : " + filePath + " " + e.getMessage());
 		}
 	}
 
@@ -306,8 +303,7 @@ public class FileUtils {
 	public static long checkIfFileExistAndNotEmptyReturnSize(String fullFileName) {
 		File f = new File(fullFileName);
 		long lengthInBytes = f.length();
-		Log.i("FileUtils$checkIfFileExistAndNotEmptyReturnSize", fullFileName
-				+ " length in bytes: " + lengthInBytes);
+		ZLog.i(DEBUG_TAG, fullFileName + " length in bytes: " + lengthInBytes);
 		return lengthInBytes;
 
 	}
