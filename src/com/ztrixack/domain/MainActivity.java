@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.ztrixack.api.telize.TelizeAPI;
 import com.ztrixack.feature.camera.CameraPreview;
 import com.ztrixack.feature.chat.MessageTask;
 import com.ztrixack.feature.translate.Translate;
@@ -88,11 +89,16 @@ public class MainActivity extends ActionBarActivity implements
 	public void onPushMethod(View view) {
 		try {
 			final String text = edittext.getText().toString();
+			task.sendMessage(text);
 			switch (text) {
 			case "กล้อง":
 				CameraPreview camera = new CameraPreview(this);
 				FrameLayout preview = (FrameLayout) findViewById(R.id.image_preview);
 				preview.addView(camera);
+			case "ip":
+				TelizeAPI telizeAPI = new TelizeAPI(this, task);
+				//telizeAPI.getIP();
+				break;
 			}
 			new Thread(new Runnable() {
 
@@ -101,7 +107,6 @@ public class MainActivity extends ActionBarActivity implements
 					try {
 						final String tx = Translate.translateByGoogle("th",
 								text);
-						task.sendMessage(text);
 						task.receiveMessage(tx);
 
 					} catch (IOException e) {

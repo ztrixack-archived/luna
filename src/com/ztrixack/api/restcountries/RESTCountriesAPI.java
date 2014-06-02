@@ -1,4 +1,4 @@
-package com.ztrixack.api.rest_countries;
+package com.ztrixack.api.restcountries;
 
 import java.util.HashMap;
 
@@ -14,7 +14,7 @@ import android.os.AsyncTask;
 
 public class RESTCountriesAPI {
 
-	private static final String DEBUG_TAG = GetRESTCountriesAPI.class.getName();
+	private static final String DEBUG_TAG = RESTCountriesAPI.class.getName();
 
 	public static final String ARG_CURRENCY = "__CURRENCY__";
 	public static final String ARG_CAPITAL_CITY = "__CAPITAL_CITY__";
@@ -80,7 +80,7 @@ public class RESTCountriesAPI {
 	/**
 	 * Async task class to get json by making HTTP call
 	 * */
-	private class GetRESTCountriesAPI extends AsyncTask<String, Void, String> {
+	private class GetRESTCountriesAPI extends AsyncTask<String, Void, Void> {
 
 		@Override
 		protected void onPreExecute() {
@@ -88,9 +88,7 @@ public class RESTCountriesAPI {
 		}
 
 		@Override
-		protected String doInBackground(String... Data) {
-			String result = "";
-
+		protected Void doInBackground(String... Data) {
 			// Creating service handler class instance
 			ServiceHandler sh = new ServiceHandler();
 			// Making a request to url and getting response
@@ -98,35 +96,25 @@ public class RESTCountriesAPI {
 			ZLog.d("Response: ", "> " + jsonStr);
 
 			if (jsonStr != null) {
-				try {
-					JSONArray jsonArray = new JSONArray(jsonStr);
-
-					// looping through All Contacts
-					for (int i = 0; i < jsonArray.length(); i++) {
-						JSONObject jObj = jsonArray.getJSONObject(i);
-						result += ", " + jObj.getString(Data[1]);
-					}
-					result = result.substring(2);
-				} catch (JSONException e) {
-					ZLog.e(DEBUG_TAG, e.getMessage());
-				}
+				getAll(jsonStr);
 			} else {
 				ZLog.e("ServiceHandler", "Couldn't get any data from the url");
 			}
+			return null;
 
-			return result;
 		}
 
 		@Override
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 
 		}
 
 	}
 
-	public void getAll(JSONArray jsonArray) {
+	public void getAll(String jsonStr) {
 		try {
+			JSONArray jsonArray = new JSONArray(jsonStr);
 			// looping through All Contacts
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jObj = jsonArray.getJSONObject(i);
