@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ztrixack.domain.MainActivity$PlaceholderFragment" >
+    tools:context="com.ztrixack.activity.MainActivity$PlaceholderFragment" >
 
     <ListView
         android:id="@+id/section_label"
@@ -15,7 +15,8 @@
         android:layout_above="@+id/text_edit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:divider="@android:color/transparent" >
     </ListView>
 
     <EditText

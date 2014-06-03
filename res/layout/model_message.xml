@@ -2,18 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin" >
 
-    <TextView
-        android:id="@+id/message_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4sp"
-        android:background="@drawable/speech_bubble_green"
-        android:shadowColor="@color/textShadow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:textColor="@color/textColor"
-        android:textSize="16sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/image_luna"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/abc_ab_share_pack_holo_light" />
+
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4sp"
+            android:background="@drawable/speech_bubble_orange"
+            android:shadowColor="@color/textShadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -28,14 +28,14 @@ public class MessageTask {
 	public void sendMessage(String newMessage) {
 		if (newMessage.length() > 0) {
 			addNewMessage(new Message(newMessage, false));
-			new SendMessage().execute();
+			// new SendMessage().execute();
 		}
 	}
 
 	public void receiveMessage(String newMessage) {
 		if (newMessage.length() > 0) {
 			addNewMessage(new Message(newMessage, true));
-			new SendMessage().execute();
+			// new SendMessage().execute();
 		}
 	}
 

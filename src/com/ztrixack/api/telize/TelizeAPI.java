@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 
 import com.ztrixack.feature.chat.MessageTask;
 import com.ztrixack.service.ServiceHandler;
-import com.ztrixack.utils.Preconditions;
 import com.ztrixack.utils.ZLog;
 
 public class TelizeAPI {
@@ -217,6 +216,7 @@ public class TelizeAPI {
 		} catch (JSONException e) {
 			ZLog.e(DEBUG_TAG + "$getAll", e.getMessage());
 		}
+		ZLog.i(DEBUG_TAG, hmTelize.get(TAG_IP));
 	}
 
 	public String getJSONString(JSONObject jsonObject, String tag) {

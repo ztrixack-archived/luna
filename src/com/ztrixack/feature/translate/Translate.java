@@ -30,13 +30,16 @@ public class Translate {
 		String result = br.readLine();
 		br.close();
 		Log.i("translateByGoogle", result);
-		result = result.substring(2, result.indexOf("]]") + 1);
+		String trans = result.substring(2, result.indexOf("]]") + 1);
+		String lang = result.substring(result.indexOf("\",,") - 2,
+				result.indexOf("\",,"));
 		StringBuilder sb = new StringBuilder();
-		String[] splits = result.split("(?<!\\\\)\"");
+		String[] splits = trans.split("(?<!\\\\)\"");
 		for (int i = 1; i < splits.length; i += 8) {
 			sb.append(splits[i]);
 		}
-		return sb.toString().replace("\\n", "\n").replaceAll("\\\\(.)", "$1");
+		return sb.toString().replace("\\n", "\n").replaceAll("\\\\(.)", "$1")
+				+ " (" + lang + ")";
 	}
 
 	public static String translateByLongDo(String text) throws IOException {
