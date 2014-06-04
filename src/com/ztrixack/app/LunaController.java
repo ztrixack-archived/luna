@@ -1,6 +1,8 @@
 package com.ztrixack.app;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -8,24 +10,30 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 
-public class ApplicationController extends Application {
+public class LunaController extends Application {
 
 	/**
 	 * Log or request TAG
 	 */
-	public static final String TAG = ApplicationController.class
+	public static final String TAG = LunaController.class
 			.getSimpleName();
 
 	/**
 	 * Global request queue for Volley
 	 */
 	private RequestQueue mRequestQueue;
+	
+	/**
+	 * SMS XP
+	 */
+	public static SharedPreferences sp;
+    public static final Uri INBOX_URI = Uri.parse("content://sms/inbox");
 
 	/**
 	 * A singleton instance of the application class for easy access in other
 	 * places
 	 */
-	private static ApplicationController sInstance;
+	private static LunaController sInstance;
 
 	@Override
 	public void onCreate() {
@@ -35,10 +43,11 @@ public class ApplicationController extends Application {
 		sInstance = this;
 	}
 
+
 	/**
 	 * @return ApplicationController singleton instance
 	 */
-	public static synchronized ApplicationController getInstance() {
+	public static synchronized LunaController getInstance() {
 		return sInstance;
 	}
 

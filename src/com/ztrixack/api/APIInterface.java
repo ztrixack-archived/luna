@@ -13,7 +13,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.ztrixack.app.ApplicationController;
+import com.ztrixack.app.LunaController;
 import com.ztrixack.feature.chat.MessageTask;
 import com.ztrixack.utils.ZLog;
 
@@ -49,7 +49,7 @@ public abstract class APIInterface {
 				});
 
 		// Adding request to request queue
-		ApplicationController.getInstance().addToRequestQueue(jsonObjReq,
+		LunaController.getInstance().addToRequestQueue(jsonObjReq,
 				tag_json_obj);
 	}
 
@@ -71,7 +71,7 @@ public abstract class APIInterface {
 				});
 
 		// Adding request to request queue
-		ApplicationController.getInstance().addToRequestQueue(req,
+		LunaController.getInstance().addToRequestQueue(req,
 				tag_json_arry);
 	}
 
@@ -95,7 +95,7 @@ public abstract class APIInterface {
 				});
 
 		// Adding request to request queue
-		ApplicationController.getInstance().addToRequestQueue(strReq,
+		LunaController.getInstance().addToRequestQueue(strReq,
 				tag_string_req);
 	}
 

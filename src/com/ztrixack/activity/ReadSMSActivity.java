@@ -1,0 +1,100 @@
+package com.ztrixack.activity;
+
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.ztrixack.app.LunaController;
+import com.ztrixack.luna.R;
+import com.ztrixack.utils.ZLog;
+
+public class ReadSMSActivity extends ActionBarActivity {
+
+	protected static final String TAG = ReadSMSActivity.class.getSimpleName();
+	/**
+	 * Used to store the last screen title. For use in
+	 * {@link #restoreActionBar()}.
+	 */
+
+	private static TextView mTextView;
+	private static Cursor mCursor;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login);
+
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+
+		String id = getIntent().getStringExtra("id");
+		String[] projection = { "_id", "address", "date", "body" };
+		String selection = "_id = ?";
+		String[] selectionArgs = { id };
+		mCursor = getContentResolver().query(LunaController.INBOX_URI,
+				projection, selection, selectionArgs, null);
+		if (mCursor.moveToFirst()) {
+			setTitle(mCursor.getString(mCursor.getColumnIndex("address")));
+		}
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_sms_read,
+					container, false);
+			mTextView = (TextView) rootView.findViewById(R.id.textview_field);
+
+			if (mCursor.moveToFirst()) {
+				ZLog.i(TAG, "The cursor move to first.");
+				mTextView.setText(mCursor.getString(mCursor
+						.getColumnIndex("body")));
+			} else {
+				ZLog.i(TAG, "The cursor next move.");
+				mTextView.setText(mCursor.getString(mCursor
+						.getColumnIndex("body")));
+			}
+
+			return rootView;
+		}
+	}
+
+}
